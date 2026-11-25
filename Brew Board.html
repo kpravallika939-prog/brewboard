@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#090b12" />
+<title>BrewBoard — ZeroQueue Canteen</title>
+<style>
+:root{--bg:#090b12;--ink:#f7f8fc;--muted:#a3a9b8;--line:rgba(255,255,255,.13);--glass:rgba(255,255,255,.075);--glass2:rgba(255,255,255,.12);--mint:#9af3cb;--blue:#a9c7ff;--pink:#f7b5d5;--shadow:0 24px 80px rgba(0,0,0,.42)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;background:radial-gradient(ellipse at 12% 5%,rgba(91,125,255,.25),transparent 32%),radial-gradient(ellipse at 85% 18%,rgba(221,117,193,.16),transparent 30%),radial-gradient(ellipse at 50% 100%,rgba(66,209,164,.10),transparent 35%),var(--bg);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");z-index:-1}
+button{font:inherit;cursor:pointer;color:inherit;border:0}.app{max-width:1440px;margin:auto;padding:24px 34px 50px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:48px}.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:-.04em;font-size:20px}.brandmark{width:38px;height:38px;border-radius:13px;background:linear-gradient(145deg,#d4fff0,#80b9ff 55%,#d9a9ff);display:grid;place-items:center;color:#101827;box-shadow:0 5px 25px #9acbff44;font-size:20px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-top:2px}.nav{display:flex;gap:8px;padding:5px;border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:99px;backdrop-filter:blur(24px)}.nav button,.pill{padding:10px 16px;border-radius:99px;background:transparent;color:var(--muted);font-size:13px;transition:.2s}.nav button.active,.nav button:hover{background:rgba(255,255,255,.14);color:white;box-shadow:inset 0 1px rgba(255,255,255,.18)}.status{font-size:12px;color:var(--mint);display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}
+.view{display:none}.view.active{display:block;animation:fade .35s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:30px}.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);font-weight:700}.hero h1{font-size:clamp(38px,5vw,66px);letter-spacing:-.065em;line-height:.98;margin:12px 0 14px;font-weight:650}.hero p{color:var(--muted);font-size:15px;line-height:1.6;margin:0;max-width:510px}.hero-aside{padding:18px 22px;border:1px solid var(--line);border-radius:20px;background:var(--glass);backdrop-filter:blur(22px);min-width:190px}.hero-aside span{display:block;color:var(--muted);font-size:11px}.hero-aside strong{display:block;font-size:26px;letter-spacing:-.04em;margin-top:5px}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.16);box-shadow:var(--shadow),inset 0 1px rgba(255,255,255,.17);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px)}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:24px 0 16px}.categories{display:flex;gap:8px;flex-wrap:wrap}.cat{border:1px solid var(--line);background:rgba(255,255,255,.045);padding:9px 15px;border-radius:99px;color:var(--muted);font-size:12px}.cat.active{background:#eaf5ff;color:#111827;border-color:#eaf5ff}.search{border:1px solid var(--line);background:rgba(255,255,255,.06);border-radius:99px;padding:10px 15px;color:white;width:210px;outline:none}.search::placeholder{color:#858b9a}
+.menu-layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;align-items:start}.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.food-card{position:relative;overflow:hidden;border-radius:23px;padding:13px;transition:.25s;min-width:0}.food-card:hover{transform:translateY(-4px);border-color:#ffffff55}.food-art{height:142px;border-radius:16px;display:grid;place-items:center;font-size:70px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 45%,var(--glow),transparent 65%),rgba(255,255,255,.055)}.food-art:after{content:"";position:absolute;width:125px;height:125px;border:1px solid #ffffff20;border-radius:50%;box-shadow:0 0 40px var(--glow);transform:scale(1.25)}.food-art span{filter:drop-shadow(0 12px 12px #0008);z-index:1}.food-info{padding:13px 3px 2px}.food-info h3{font-size:16px;letter-spacing:-.03em;margin:0 0 5px}.food-info p{font-size:11px;color:var(--muted);margin:0 0 13px}.food-bottom{display:flex;align-items:center;justify-content:space-between}.price{font-weight:700;font-size:17px}.add{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#e7f7ff,#a9c7ff);color:#111827;font-size:22px;line-height:1;box-shadow:0 5px 18px #9bc7ff44}.add:hover{transform:scale(1.07)}
+.cart{border-radius:25px;padding:20px;position:sticky;top:18px}.cart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.cart-head h2{font-size:19px;margin:0;letter-spacing:-.04em}.count{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:5px 9px;border-radius:99px}.empty{text-align:center;color:var(--muted);padding:35px 10px;font-size:13px}.cart-line{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.mini-emoji{width:42px;height:42px;border-radius:13px;background:#ffffff12;display:grid;place-items:center;font-size:23px}.line-main{flex:1;min-width:0}.line-main strong{display:block;font-size:13px}.line-main small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.line-price{font-size:13px;font-weight:650}.qty{display:flex;align-items:center;gap:8px;margin-top:6px}.qty button{width:21px;height:21px;border-radius:50%;background:#ffffff18;font-size:14px}.totals{padding-top:16px}.total-row{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin:8px 0}.total-row.grand{color:white;font-size:17px;font-weight:700;padding-top:12px;border-top:1px solid var(--line)}.primary{width:100%;padding:14px 18px;border-radius:15px;background:linear-gradient(110deg,#e6f7ff,#b7d0ff 50%,#d9c2ff);color:#111827;font-weight:750;font-size:13px;box-shadow:0 8px 30px #9dc6ff35;transition:.2s}.primary:hover{transform:translateY(-2px);filter:brightness(1.05)}.primary:disabled{opacity:.35;cursor:not-allowed;transform:none}.subtle{background:rgba(255,255,255,.08);border:1px solid var(--line);color:white;padding:11px 15px;border-radius:13px;font-size:12px}
+.board-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}.board-head h1{font-size:clamp(38px,5vw,60px);letter-spacing:-.06em;margin:9px 0 0}.board-columns{display:grid;grid-template-columns:1fr 1fr;gap:18px}.board-col{border-radius:26px;padding:22px;min-height:340px}.col-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.col-title h2{font-size:17px;margin:0}.col-title span{font-size:11px;color:var(--muted)}.token-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:12px}.token{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.07);padding:17px 14px;min-height:105px}.token strong{display:block;font-size:34px;letter-spacing:-.06em}.token small{display:block;color:var(--muted);font-size:10px;margin-top:5px}.ready-col{border-color:#6cebb466;background:linear-gradient(145deg,rgba(91,237,175,.12),rgba(255,255,255,.035))}.ready-col .token{background:rgba(83,232,169,.10);border-color:#6cebb455}.empty-board{color:#858b9a;font-size:13px;padding:20px 0}
+.kitchen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.ticket{border-radius:22px;padding:18px}.ticket-top{display:flex;justify-content:space-between;align-items:center}.ticket h3{font-size:25px;margin:12px 0 5px;letter-spacing:-.05em}.ticket p{color:var(--muted);font-size:12px;line-height:1.5}.ticket .primary{margin-top:12px}.tag{font-size:10px;padding:6px 9px;border-radius:99px;background:#ffcb7a22;color:#ffd28d;border:1px solid #ffcb7a44}.tag.ready{background:#73efb522;color:#9af3cb;border-color:#73efb544}
+.modal-wrap{position:fixed;inset:0;background:rgba(2,4,10,.65);backdrop-filter:blur(15px);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modal-wrap.show{display:flex}.modal{width:min(440px,100%);border-radius:28px;padding:25px;position:relative;text-align:center}.close{position:absolute;right:16px;top:14px;background:#ffffff15;border:1px solid var(--line);width:32px;height:32px;border-radius:50%;font-size:17px}.modal h2{font-size:25px;letter-spacing:-.05em;margin:9px 0}.modal p{font-size:12px;color:var(--muted);line-height:1.55}.qr{width:174px;height:174px;margin:20px auto;border:10px solid white;border-radius:12px;background-color:white;background-image:repeating-conic-gradient(#10131a 0% 25%,white 0% 50%);background-size:17px 17px;position:relative;box-shadow:0 0 35px #b8d5ff35}.qr:before,.qr:after{content:"";position:absolute;width:38px;height:38px;background:white;border:7px solid #10131a;outline:5px solid white;top:7px;left:7px}.qr:after{left:auto;right:7px}.qr i{position:absolute;bottom:7px;left:7px;width:38px;height:38px;background:white;border:7px solid #10131a;outline:5px solid white}.amount{font-size:30px;font-weight:750;letter-spacing:-.05em}.receipt-token{font-size:76px;font-weight:800;letter-spacing:-.08em;color:var(--mint);margin:8px 0}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#f2fff9;color:#10231b;padding:12px 18px;border-radius:99px;font-size:12px;font-weight:700;z-index:50;transition:.3s;box-shadow:0 10px 35px #0008}.toast.show{opacity:1;transform:translate(-50%,0)}
+.footer{margin-top:35px;text-align:center;color:#72798a;font-size:10px;letter-spacing:.06em}.muted{color:var(--muted)}
+@media(max-width:1000px){.menu-layout{grid-template-columns:1fr}.cart{position:relative;top:0}.menu-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.app{padding:18px 15px 35px}.topbar{flex-wrap:wrap;margin-bottom:34px}.nav{order:3;width:100%;justify-content:space-between}.nav button{padding:9px 12px;font-size:11px}.status{margin-left:auto}.hero{align-items:start;flex-direction:column}.hero-aside{width:100%}.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.food-art{height:115px;font-size:58px}.search{width:100%}.toolbar{align-items:stretch;flex-direction:column}.board-columns{grid-template-columns:1fr}.kitchen-grid{grid-template-columns:1fr}.board-head{align-items:start;flex-direction:column;gap:12px}.board-col{min-height:230px}.hero h1{font-size:43px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="brandmark">✳</div><div>BrewBoard<small>ZEROQUEUE CANTEEN</small></div></div>
+  <nav class="nav" aria-label="Main navigation">
+    <button class="active" data-view="order">Order</button><button data-view="board">Wall Screen</button><button data-view="kitchen">Kitchen</button>
+  </nav>
+  <div class="status"><span class="dot"></span> Demo system online</div>
+</header>
+
+<main>
+<section class="view active" id="order">
+  <div class="hero">
+    <div><div class="eyebrow">Your break, beautifully served</div><h1>Good food.<br><span style="background:linear-gradient(90deg,#e8f7ff,#a9c7ff,#d8baff);-webkit-background-clip:text;background-clip:text;color:transparent">Zero queue.</span></h1><p>Skip the counter. Pick your favourites, customise your order and collect when your token is ready.</p></div>
+    <div class="hero-aside"><span>Average pickup time</span><strong>~ 6 min</strong><span style="margin-top:5px;color:var(--mint)">● Live kitchen estimate</span></div>
+  </div>
+  <div class="toolbar"><div class="categories"><button class="cat active" data-cat="All">All items</button><button class="cat" data-cat="Snacks">Snacks</button><button class="cat" data-cat="Meals">Meals</button><button class="cat" data-cat="Drinks">Drinks</button></div><input class="search" id="search" placeholder="⌕  Search the menu..." /></div>
+  <div class="menu-layout">
+    <div class="menu-grid" id="menuGrid"></div>
+    <aside class="cart glass">
+      <div class="cart-head"><h2>Your order</h2><span class="count" id="cartCount">0 ITEMS</span></div>
+      <div id="cartItems"><div class="empty">Your tray is waiting.<br>Tap a + to add something delicious.</div></div>
+      <div class="totals"><div class="total-row"><span>Subtotal</span><strong id="subtotal">₹0</strong></div><div class="total-row"><span>Service fee</span><strong>₹0</strong></div><div class="total-row grand"><span>Total</span><strong id="total">₹0</strong></div><button class="primary" id="quickPay" disabled>Quick Pay&nbsp; ↗</button><p style="text-align:center;font-size:10px;color:var(--muted);margin:11px 0 0">Secure demo checkout · No real payment</p></div>
+    </aside>
+  </div>
+</section>
+
+<section class="view" id="board">
+  <div class="board-head"><div><div class="eyebrow">Live order status</div><h1>Canteen Wall Screen</h1><p class="muted">Your order is moving. Your next bite is getting closer.</p></div><div class="hero-aside"><span>Last synced</span><strong id="syncTime">Just now</strong></div></div>
+  <div class="board-columns">
+    <div class="board-col glass"><div class="col-title"><h2>◌ &nbsp;Preparing</h2><span id="prepCount">0 ORDERS</span></div><div class="token-list" id="preparingList"><div class="empty-board">No orders in preparation.</div></div></div>
+    <div class="board-col glass ready-col"><div class="col-title"><h2>✓ &nbsp;Ready for Pickup</h2><span id="readyCount">0 ORDERS</span></div><div class="token-list" id="readyList"><div class="empty-board">Ready tokens will appear here.</div></div></div>
+  </div>
+</section>
+
+<section class="view" id="kitchen">
+  <div class="hero"><div><div class="eyebrow">Staff workspace</div><h1>Kitchen console.</h1><p>One tap to move an order from the preparation counter to pickup.</p></div><div class="hero-aside"><span>Active tickets</span><strong id="activeTickets">0</strong></div></div>
+  <div class="kitchen-grid" id="kitchenGrid"><div class="empty-board">New orders will appear here.</div></div>
+</section>
+</main>
+<div class="footer">BREWBOARD · ZEROQUEUE CANTEEN EXPERIENCE · INTERACTIVE FRONTEND DEMO</div>
+</div>
+
+<div class="modal-wrap" id="payModal"><div class="modal glass"><button class="close" data-close="payModal">×</button><div class="eyebrow">Quick checkout</div><h2>One scan away.</h2><p>Scan this demo UPI code or tap Pay Now to simulate a successful payment.</p><div class="qr"><i></i></div><div class="amount" id="payAmount">₹0</div><p>brewboard@upi · Demo payment only</p><button class="primary" id="payNow">Pay Now&nbsp; →</button></div></div>
+<div class="modal-wrap" id="receiptModal"><div class="modal glass"><button class="close" data-close="receiptModal">×</button><div class="eyebrow">Payment successful</div><h2>Your order is confirmed.</h2><p>Keep this token handy. We'll let you know when it's ready.</p><div class="receipt-token" id="receiptToken">#35</div><div class="tag">● Preparing your order</div><p id="receiptDetail"></p><button class="primary" id="viewBoard">Track on Wall Screen</button></div></div>
+<div class="toast" id="toast">Order updated</div>
+
+<script>
+const menu = [
+ {id:'samosa',name:'Samosa',desc:'Crispy potato-filled classic',price:20,emoji:'🥟',cat:'Snacks',glow:'#f2a95b'},
+ {id:'chai',name:'Masala Chai',desc:'Freshly brewed & comforting',price:15,emoji:'🍵',cat:'Drinks',glow:'#c99b63'},
+ {id:'maggi',name:'Masala Maggi',desc:'Hot, spicy, instant favourite',price:30,emoji:'🍜',cat:'Meals',glow:'#e9c45d'},
+ {id:'coffee',name:'Cold Coffee',desc:'Chilled, creamy coffee',price:40,emoji:'🥤',cat:'Drinks',glow:'#b88bdb',addons:[{name:'Extra Ice Cream',price:15},{name:'Less Sugar',price:0}]},
+ {id:'puff',name:'Veg Puff',desc:'Flaky pastry, warm filling',price:25,emoji:'🥐',cat:'Snacks',glow:'#e5a45c'},
+ {id:'sandwich',name:'Club Sandwich',desc:'Toasted with fresh veggies',price:45,emoji:'🥪',cat:'Meals',glow:'#86c99c'},
+ {id:'fries',name:'Peri Peri Fries',desc:'Golden, crispy & seasoned',price:35,emoji:'🍟',cat:'Snacks',glow:'#e9b85d'},
+ {id:'lemon',name:'Lemon Soda',desc:'Sparkling citrus refresher',price:25,emoji:'🍋',cat:'Drinks',glow:'#c5d96d'},
+ {id:'dosa',name:'Mini Dosa',desc:'Golden dosa with chutney',price:50,emoji:'🥞',cat:'Meals',glow:'#e4b96c'}
+];
+let cart = [], orders = JSON.parse(localStorage.getItem('brewboardOrders')||'[]'), nextToken = Number(localStorage.getItem('brewboardNextToken')||35), activeCategory='All', pendingOrder=null;
+const $ = id => document.getElementById(id), money = n=>'₹'+n;
+function save(){localStorage.setItem('brewboardOrders',JSON.stringify(orders));localStorage.setItem('brewboardNextToken',String(nextToken))}
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function renderMenu(){
+ const q=$('search').value.toLowerCase();
+ $('menuGrid').innerHTML=menu.filter(m=>(activeCategory==='All'||m.cat===activeCategory)&&(`${m.name} ${m.desc}`.toLowerCase().includes(q))).map(m=>`<article class="food-card glass"><div class="food-art" style="--glow:${m.glow}"><span>${m.emoji}</span></div><div class="food-info"><h3>${m.name}</h3><p>${m.desc}</p><div class="food-bottom"><span class="price">${money(m.price)}</span><button class="add" aria-label="Add ${m.name}" onclick="addItem('${m.id}')">+</button></div></div></article>`).join('');
+}
+function addItem(id){let m=menu.find(x=>x.id===id),line=cart.find(x=>x.id===id);if(line)line.qty++;else cart.push({...m,qty:1,addon:null,addonPrice:0});renderCart()}
+function changeQty(id,d){let x=cart.find(x=>x.id===id);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(y=>y.id!==id);renderCart()}
+function renderCart(){
+ $('cartCount').textContent=cart.reduce((a,x)=>a+x.qty,0)+' ITEMS';
+ if(!cart.length){$('cartItems').innerHTML='<div class="empty">Your tray is waiting.<br>Tap a + to add something delicious.</div>'}
+ else $('cartItems').innerHTML=cart.map(x=>`<div class="cart-line"><div class="mini-emoji">${x.emoji}</div><div class="line-main"><strong>${x.name}</strong><small>${x.addon||x.desc}</small><div class="qty"><button onclick="changeQty('${x.id}',-1)">−</button><span>${x.qty}</span><button onclick="changeQty('${x.id}',1)">+</button></div></div><div class="line-price">${money((x.price+x.addonPrice)*x.qty)}</div></div>`).join('');
+ let total=cart.reduce((a,x)=>a+(x.price+x.addonPrice)*x.qty,0);$('subtotal').textContent=money(total);$('total').textContent=money(total);$('quickPay').disabled=!cart.length;
+}
+function openPay(){if(!cart.length)return;let coffee=cart.find(x=>x.id==='coffee');if(coffee&&!coffee.addon){let choice=confirm('Add Extra Ice Cream (+₹15) to your Cold Coffee?');if(choice){coffee.addon='Extra Ice Cream';coffee.addonPrice=15;renderCart()}}
+ pendingOrder={items:cart.map(x=>({...x})),total:cart.reduce((a,x)=>a+(x.price+x.addonPrice)*x.qty,0)};$('payAmount').textContent=money(pendingOrder.total);$('payModal').classList.add('show')}
+function pay(){if(!pendingOrder)return;let token=nextToken++;let order={token,items:pendingOrder.items,total:pendingOrder.total,status:'Preparing',created:Date.now()};orders.unshift(order);save();cart=[];pendingOrder=null;renderCart();$('payModal').classList.remove('show');$('receiptToken').textContent='#'+token;$('receiptDetail').textContent=order.items.map(x=>`${x.qty} × ${x.name}${x.addon?' · '+x.addon:''}`).join('  •  ');$('receiptModal').classList.add('show');renderAll();showToast('Payment approved · Token #'+token)}
+function markReady(token){let o=orders.find(x=>x.token===token);if(!o)return;o.status='Ready';save();renderAll();playChime();showToast('Token #'+token+' is ready for pickup')}
+function playChime(){try{let ctx=new(window.AudioContext||window.webkitAudioContext)(),osc=ctx.createOscillator(),gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.type='sine';osc.frequency.setValueAtTime(880,ctx.currentTime);osc.frequency.setValueAtTime(1174,ctx.currentTime+.13);gain.gain.setValueAtTime(.0001,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(.18,ctx.currentTime+.025);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.5);osc.start();osc.stop(ctx.currentTime+.52)}catch(e){}}
+function renderBoard(){
+ let prep=orders.filter(o=>o.status==='Preparing'),ready=orders.filter(o=>o.status==='Ready');
+ $('prepCount').textContent=prep.length+' ORDERS';$('readyCount').textContent=ready.length+' ORDERS';
+ const tokenCard=o=>`<div class="token"><strong>#${o.token}</strong><small>${o.items.map(i=>i.name).join(', ')}</small></div>`;
+ $('preparingList').innerHTML=prep.length?prep.map(tokenCard).join(''):'<div class="empty-board">No orders in preparation.</div>';
+ $('readyList').innerHTML=ready.length?ready.map(tokenCard).join(''):'<div class="empty-board">Ready tokens will appear here.</div>';
+ $('syncTime').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+function renderKitchen(){
+ let active=orders.filter(o=>o.status==='Preparing');$('activeTickets').textContent=active.length;
+ $('kitchenGrid').innerHTML=active.length?active.map(o=>`<article class="ticket glass"><div class="ticket-top"><span class="tag">PREPARING</span><span class="muted" style="font-size:10px">JUST NOW</span></div><h3>Token #${o.token}</h3><p>${o.items.map(i=>`${i.qty} × ${i.name}${i.addon?' + '+i.addon:''}`).join('<br>')}<br><br><strong style="color:white">${money(o.total)}</strong></p><button class="primary" onclick="markReady(${o.token})">Mark as Ready&nbsp; ✓</button></article>`).join(''):'<div class="empty-board">No active kitchen tickets. Enjoy the calm.</div>';
+}
+function renderAll(){renderBoard();renderKitchen()}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===b.dataset.view));renderAll()}));
+document.querySelectorAll('.cat').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.cat').forEach(x=>x.classList.toggle('active',x===b));activeCategory=b.dataset.cat;renderMenu()}));
+$('search').addEventListener('input',renderMenu);$('quickPay').addEventListener('click',openPay);$('payNow').addEventListener('click',pay);
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).classList.remove('show')));
+$('viewBoard').addEventListener('click',()=>{$('receiptModal').classList.remove('show');document.querySelector('[data-view="board"]').click()});
+$('payModal').addEventListener('click',e=>{if(e.target===$('payModal'))$('payModal').classList.remove('show')});
+renderMenu();renderCart();renderAll();
+// Lightweight local polling keeps multiple tabs on this browser profile in sync.
+setInterval(()=>{let latest=JSON.parse(localStorage.getItem('brewboardOrders')||'[]');if(JSON.stringify(latest)!==JSON.stringify(orders)){orders=latest;renderAll()}},1200);
+</script>
+</body>
+</html>
